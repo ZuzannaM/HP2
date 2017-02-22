@@ -31,6 +31,8 @@
 <!-- <mapping resource="employee.hbm.xml"/> -->
 <mapping class="com.moleda.zuzanna.HibernateProject.dto.UserDetails"/>
 <mapping class="com.moleda.zuzanna.HibernateProject.dto.Vehicle"/>
+<mapping class="com.moleda.zuzanna.HibernateProject.dto.FourWeeler"/>
+<mapping class="com.moleda.zuzanna.HibernateProject.dto.TwoWeeler"/>
 
 </session-factory>
 </hibernate-configuration>
