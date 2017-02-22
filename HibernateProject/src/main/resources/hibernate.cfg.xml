@@ -26,13 +26,13 @@
 <property name="show_sql">true</property>
 
 <!-- Drop and re-create the database schema on startup -->
-<property name="hibernate.hbm2ddl.auto">create</property>
+<property name="hibernate.hbm2ddl.auto">update</property>
 
 <!-- <mapping resource="employee.hbm.xml"/> -->
 <mapping class="com.moleda.zuzanna.HibernateProject.dto.UserDetails"/>
-<mapping class="com.moleda.zuzanna.HibernateProject.dto.Vehicle"/>
-<mapping class="com.moleda.zuzanna.HibernateProject.dto.FourWeeler"/>
-<mapping class="com.moleda.zuzanna.HibernateProject.dto.TwoWeeler"/>
+<!-- <mapping class="com.moleda.zuzanna.HibernateProject.dto.Vehicle"/>  -->
+<!-- <mapping class="com.moleda.zuzanna.HibernateProject.dto.FourWeeler"/> -->
+<!-- <mapping class="com.moleda.zuzanna.HibernateProject.dto.TwoWeeler"/> -->
 
 </session-factory>
 </hibernate-configuration>

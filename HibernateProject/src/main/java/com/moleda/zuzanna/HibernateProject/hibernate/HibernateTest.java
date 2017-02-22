@@ -17,25 +17,29 @@ public class HibernateTest {
 
 	public static void main(String[] args) {
 
-		Vehicle vehicle = new Vehicle();
-		vehicle.setVehicleName("Car");
-		
-		TwoWeeler bicycle = new TwoWeeler();
-		bicycle.setVehicleName("Bike");
-		bicycle.setSteerelHandler("bibycle Seerel handler");
-		
-		FourWeeler jeep = new FourWeeler();
-		jeep.setVehicleName("Jeep");
-		jeep.setSteerelWheel("jeep wheeler");
-		
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.save(vehicle);
-		session.save(bicycle);
-		session.save(jeep);
+		
+		// create record in db
+//		UserDetails user = new UserDetails();
+//		user.setUserName("My name");
+//		session.save(user);
+		
+		// getting from db
+		UserDetails user = (UserDetails) session.get(UserDetails.class, 6);
+		
+		// update record from db
+//		user.setUserName("Updated name");
+//		session.update(user);
+		
+		// deleting a record from db
+//		session.delete(user);
+		
 		session.getTransaction().commit();
 		session.close();
+		
+//		System.out.println("User name: " + user.getUserName());
 		
 	}
 
