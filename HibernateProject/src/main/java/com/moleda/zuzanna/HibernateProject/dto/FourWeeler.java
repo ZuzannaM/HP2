@@ -1,5 +1,8 @@
 package com.moleda.zuzanna.HibernateProject.dto;
 
+import javax.persistence.Entity;
+
+@Entity
 public class FourWeeler extends Vehicle {
 
 	private String SteerelWheel;
