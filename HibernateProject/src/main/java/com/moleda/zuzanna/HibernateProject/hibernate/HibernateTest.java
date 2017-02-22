@@ -21,9 +21,11 @@ public class HibernateTest {
 		vehicle.setVehicleName("Car");
 		
 		TwoWeeler bicycle = new TwoWeeler();
+		bicycle.setVehicleName("Bike");
 		bicycle.setSteerelHandler("bibycle Seerel handler");
 		
 		FourWeeler jeep = new FourWeeler();
+		jeep.setVehicleName("Jeep");
 		jeep.setSteerelWheel("jeep wheeler");
 		
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
