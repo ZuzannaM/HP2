@@ -13,6 +13,7 @@ public class UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="USER_ID")
 	private int userId;
 
 	@Column(name = "USER_NAME")
@@ -33,5 +34,12 @@ public class UserDetails {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
+	@Override
+	public String toString() {
+		return "UserDetails [userId=" + userId + ", userName=" + userName + "]";
+	}
+	
+	
 
 }

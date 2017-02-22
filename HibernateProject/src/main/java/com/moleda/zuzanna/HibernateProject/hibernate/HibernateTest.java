@@ -1,16 +1,13 @@
 package com.moleda.zuzanna.HibernateProject.hibernate;
 
-import java.util.Date;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
-import com.moleda.zuzanna.HibernateProject.dto.Address;
-import com.moleda.zuzanna.HibernateProject.dto.FourWeeler;
-import com.moleda.zuzanna.HibernateProject.dto.TwoWeeler;
 import com.moleda.zuzanna.HibernateProject.dto.UserDetails;
-import com.moleda.zuzanna.HibernateProject.dto.Vehicle;
 
 
 public class HibernateTest {
@@ -22,24 +19,24 @@ public class HibernateTest {
 		session.beginTransaction();
 		
 		// create record in db
-//		UserDetails user = new UserDetails();
-//		user.setUserName("My name");
-//		session.save(user);
+//		for(int i = 1; i<=10; i++){
+//			UserDetails user = new UserDetails();
+//			user.setUserName("User " + i);
+//			session.save(user);
+//		}
 		
-		// getting from db
-		UserDetails user = (UserDetails) session.get(UserDetails.class, 6);
+		@SuppressWarnings("unchecked")
+		Query<UserDetails> query = session.createQuery("from UserDetails");
+		List<UserDetails> users = query.list();
 		
-		// update record from db
-//		user.setUserName("Updated name");
-//		session.update(user);
-		
-		// deleting a record from db
-//		session.delete(user);
 		
 		session.getTransaction().commit();
 		session.close();
 		
-//		System.out.println("User name: " + user.getUserName());
+		for(UserDetails user : users){
+			System.out.println(user);
+		}
+		
 		
 	}
 
