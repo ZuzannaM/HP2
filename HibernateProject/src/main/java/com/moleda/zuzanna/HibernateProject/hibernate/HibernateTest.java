@@ -3,9 +3,16 @@ package com.moleda.zuzanna.HibernateProject.hibernate;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 
 import com.moleda.zuzanna.HibernateProject.dto.UserDetails;
@@ -19,31 +26,23 @@ public class HibernateTest {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		// create record in db
-//		for(int i = 1; i<=10; i++){
-//			UserDetails user = new UserDetails();
-//			user.setUserName("User " + i);
-//			session.save(user);
-//		}
+		// get CriteriaBuilder object to form wanted CriteriaQuery object
+		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 		
-		String userId = "5";
-		String userName = "User 9";
+		// define particular query
+		CriteriaQuery<UserDetails> qdef = criteriaBuilder.createQuery(UserDetails.class);
 		
-//		@SuppressWarnings("unchecked")
-//		Query<UserDetails> query = session.createQuery("from UserDetails where userId < ?");
-//		query.setInteger(0, Integer.parseInt(userId));
-//		query.setFirstResult(5);
-//		query.setMaxResults(4);
-//		List<UserDetails> users = session.createQuery("from UserDetails where userId > :userId and userName = :userName")
-//			.setParameter("userId", Integer.parseInt(userId))
-//			.setParameter("userName", userName)
-//			.list();
+		// selecting root component
+		Root<UserDetails> root = qdef.from(UserDetails.class);
 		
-		// Query constructed in UserDetails class
-		Query<UserDetails> query = session.getNamedQuery("UserDetails.byId");
-		query.setParameter("userId", 9);
-		List<UserDetails> users = query.list();
+		// getting all entities from root component
+		qdef.select(root);
 		
+		// creating query which must be translated to SQL
+		TypedQuery<UserDetails> typedQuery = session.createQuery(qdef);
+		
+		// getting list of object as the result of created query
+		List<UserDetails> users = typedQuery.getResultList();
 		
 		session.getTransaction().commit();
 		session.close();
