@@ -26,33 +26,37 @@ public class HibernateTest {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		// get CriteriaBuilder object to form wanted CriteriaQuery object
-		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+//		// get CriteriaBuilder object to form wanted CriteriaQuery object
+//		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+//		
+//		// define particular query
+//		CriteriaQuery<Object[]> qdef = criteriaBuilder.createQuery(Object[].class);
+//		
+//		// selecting root component
+//		Root<UserDetails> root = qdef.from(UserDetails.class);
+//		
+//		// getting all entities from root component - here is a time to add more criteria to the query
+//		qdef.select(criteriaBuilder.array(root.get("userId"), root.get("userName")));
+//		
+//		// creating query which must be translated to SQL
+//		TypedQuery<Object[]> typedQuery = session.createQuery(qdef);
+//		
+//		// getting list of object as the result of created query
+//		List<Object[]> users = typedQuery.getResultList();
 		
-		// define particular query
-		CriteriaQuery<Object[]> qdef = criteriaBuilder.createQuery(Object[].class);
-		
-		// selecting root component
-		Root<UserDetails> root = qdef.from(UserDetails.class);
-		
-		// getting all entities from root component - here is a time to add more criteria to the query
-		qdef.select(criteriaBuilder.array(root.get("userId"), root.get("userName")));
-		
-		// creating query which must be translated to SQL
-		TypedQuery<Object[]> typedQuery = session.createQuery(qdef);
-		
-		// getting list of object as the result of created query
-		List<Object[]> users = typedQuery.getResultList();
+		UserDetails user = session.get(UserDetails.class, 1);
 		
 		session.getTransaction().commit();
 		session.close();
 		
-		for(Object[] u : users) {
-			Integer userId = (Integer) u[0];
-			String userName = (String) u[1];
-			
-			System.out.println("Printed user -> id: " + userId + " userName: " + userName);
-		}
+		Session session2 = sessionFactory.openSession();
+		session2.beginTransaction();
+		
+		UserDetails user2 = session2.get(UserDetails.class, 1);
+		
+		session2.getTransaction().commit();
+		session2.close();
+		
 			
 		
 		
