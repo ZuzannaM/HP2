@@ -30,25 +30,31 @@ public class HibernateTest {
 		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 		
 		// define particular query
-		CriteriaQuery<UserDetails> qdef = criteriaBuilder.createQuery(UserDetails.class);
+		CriteriaQuery<Object[]> qdef = criteriaBuilder.createQuery(Object[].class);
 		
 		// selecting root component
 		Root<UserDetails> root = qdef.from(UserDetails.class);
 		
-		// getting all entities from root component
-		qdef.select(root);
+		// getting all entities from root component - here is a time to add more criteria to the query
+		qdef.select(criteriaBuilder.array(root.get("userId"), root.get("userName")));
 		
 		// creating query which must be translated to SQL
-		TypedQuery<UserDetails> typedQuery = session.createQuery(qdef);
+		TypedQuery<Object[]> typedQuery = session.createQuery(qdef);
 		
 		// getting list of object as the result of created query
-		List<UserDetails> users = typedQuery.getResultList();
+		List<Object[]> users = typedQuery.getResultList();
 		
 		session.getTransaction().commit();
 		session.close();
 		
-		for(UserDetails u : users)
-			System.out.println(u);
+		for(Object[] u : users) {
+			Integer userId = (Integer) u[0];
+			String userName = (String) u[1];
+			
+			System.out.println("Printed user -> id: " + userId + " userName: " + userName);
+		}
+			
+		
 		
 	}
 
