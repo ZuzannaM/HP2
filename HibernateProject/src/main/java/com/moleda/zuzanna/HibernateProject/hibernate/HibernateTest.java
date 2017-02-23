@@ -1,6 +1,7 @@
 package com.moleda.zuzanna.HibernateProject.hibernate;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,18 +26,30 @@ public class HibernateTest {
 //			session.save(user);
 //		}
 		
-		@SuppressWarnings("unchecked")
-		Query<UserDetails> query = session.createQuery("from UserDetails");
+		String userId = "5";
+		String userName = "User 9";
+		
+//		@SuppressWarnings("unchecked")
+//		Query<UserDetails> query = session.createQuery("from UserDetails where userId < ?");
+//		query.setInteger(0, Integer.parseInt(userId));
+//		query.setFirstResult(5);
+//		query.setMaxResults(4);
+//		List<UserDetails> users = session.createQuery("from UserDetails where userId > :userId and userName = :userName")
+//			.setParameter("userId", Integer.parseInt(userId))
+//			.setParameter("userName", userName)
+//			.list();
+		
+		// Query constructed in UserDetails class
+		Query<UserDetails> query = session.getNamedQuery("UserDetails.byId");
+		query.setParameter("userId", 9);
 		List<UserDetails> users = query.list();
 		
 		
 		session.getTransaction().commit();
 		session.close();
 		
-		for(UserDetails user : users){
-			System.out.println(user);
-		}
-		
+		for(UserDetails u : users)
+			System.out.println(u);
 		
 	}
 
